@@ -99,8 +99,10 @@ def _jsonnet_library_impl(ctx):
     ]
 
 def _jsonnet_toolchain(ctx):
+    toolchain = ctx.toolchains["//jsonnet:toolchain_type"]
+    jsonnet = toolchain.jsonnet.jsonnet[DefaultInfo].files_to_run.executable
     return struct(
-        jsonnet_path = ctx.executable.jsonnet.path,
+        jsonnet = jsonnet,
     )
 
 def _quote(s):
@@ -191,7 +193,7 @@ def _jsonnet_to_json_impl(ctx):
     command = (
         [
             "set -e;",
-            toolchain.jsonnet_path,
+            toolchain.jsonnet.path,
         ] +
         ["-J " + shell.quote(im) for im in _get_import_paths(ctx.label, [ctx.file.src], ctx.attr.imports)] +
         ["-J " + shell.quote(im) for im in depinfo.imports.to_list()] +
@@ -282,7 +284,7 @@ def _jsonnet_to_json_impl(ctx):
         depinfo.transitive_sources.to_list()
     )
 
-    tools = [ctx.executable.jsonnet]
+    tools = [toolchain.jsonnet]
 
     ctx.actions.run_shell(
         inputs = compile_inputs + stamp_inputs,
@@ -356,7 +358,7 @@ def _jsonnet_to_json_test_impl(ctx):
 
         # For legacy reasons, we also disable canonicalize_golden for yaml_streams.
         canonicalize = not (ctx.attr.yaml_stream or not ctx.attr.canonicalize_golden)
-        dump_golden_cmd = (ctx.executable.jsonnet.short_path if ctx.attr.error == 0 and canonicalize else "/bin/cat")
+        dump_golden_cmd = (toolchain.jsonnet.short_path if ctx.attr.error == 0 and canonicalize else "/bin/cat")
         if ctx.attr.regex:
             diff_command = _REGEX_DIFF_COMMAND % (
                 dump_golden_cmd,
@@ -391,7 +393,7 @@ def _jsonnet_to_json_test_impl(ctx):
 
     other_args = ctx.attr.extra_args + (["-y"] if ctx.attr.yaml_stream else [])
     jsonnet_command = " ".join(
-        ["OUTPUT=$(%s" % ctx.executable.jsonnet.short_path] +
+        ["OUTPUT=$(%s" % toolchain.jsonnet.path] +
         ["-J " + shell.quote(im) for im in _get_import_paths(ctx.label, [ctx.file.src], ctx.attr.imports)] +
         ["-J " + shell.quote(im) for im in depinfo.imports.to_list()] +
         other_args +
@@ -450,7 +452,7 @@ def _jsonnet_to_json_test_impl(ctx):
     )
 
     test_inputs = (
-        [ctx.file.src, ctx.executable.jsonnet] + golden_files +
+        [ctx.file.src, toolchain.jsonnet] + golden_files +
         transitive_data.to_list() +
         depinfo.transitive_sources.to_list() +
         jsonnet_ext_str_files +
@@ -473,13 +475,6 @@ _jsonnet_common_attrs = {
     "imports": attr.string_list(
         doc = "List of import `-J` flags to be passed to the `jsonnet` compiler.",
     ),
-    "jsonnet": attr.label(
-        doc = "A jsonnet binary",
-        default = Label("//jsonnet:jsonnet_tool"),
-        cfg = "exec",
-        executable = True,
-        allow_single_file = True,
-    ),
     "deps": attr.label_list(
         doc = "List of targets that are required by the `srcs` Jsonnet files.",
         providers = [JsonnetLibraryInfo],
@@ -498,6 +493,7 @@ jsonnet_library = rule(
     implementation = _jsonnet_library_impl,
     attrs = dict(_jsonnet_library_attrs.items() +
                  _jsonnet_common_attrs.items()),
+    toolchains = ["//jsonnet:toolchain_type"],
     doc = """Creates a logical set of Jsonnet files.
 
 Example:
@@ -640,6 +636,7 @@ jsonnet_to_json = rule(
     attrs = dict(_jsonnet_compile_attrs.items() +
                  _jsonnet_to_json_attrs.items() +
                  _jsonnet_common_attrs.items()),
+    toolchains = ["//jsonnet:toolchain_type"],
     doc = """\
 Compiles Jsonnet code to JSON.
 
@@ -774,6 +771,7 @@ jsonnet_to_json_test = rule(
     attrs = dict(_jsonnet_compile_attrs.items() +
                  _jsonnet_to_json_test_attrs.items() +
                  _jsonnet_common_attrs.items()),
+    toolchains = ["//jsonnet:toolchain_type"],
     executable = True,
     test = True,
     doc = """\
@@ -877,21 +875,3 @@ Example:
   To run the test: `bazel test //config:invalid_config_test`
 """,
 )
-
-def jsonnet_repositories():
-    """Adds the external dependencies needed for the Jsonnet rules."""
-    http_archive(
-        name = "jsonnet",
-        sha256 = "85c240c4740f0c788c4d49f9c9c0942f5a2d1c2ae58b2c71068107bc80a3ced4",
-        strip_prefix = "jsonnet-0.18.0",
-        urls = [
-            "https://github.com/google/jsonnet/archive/v0.18.0.tar.gz",
-        ],
-    )
-
-    http_archive(
-        name = "google_jsonnet_go",
-        sha256 = "20fdb3599c2325fb11a63860e7580705590faf732abf47ed144203715bd03a70",
-        strip_prefix = "go-jsonnet-0d78479d37eabd9451892dd02be2470145b4d4fa",
-        urls = ["https://github.com/google/go-jsonnet/archive/0d78479d37eabd9451892dd02be2470145b4d4fa.tar.gz"],
-    )

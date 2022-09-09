@@ -1,6 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
-exports_files(["jsonnet.bzl"])
+exports_files(["jsonnet.bzl", "deps.bzl", "toolchain.bzl"])
 
 bzl_library(
     name = "bzl_srcs",
@@ -45,5 +45,10 @@ alias(
         "//jsonnet:port_cpp": "@jsonnet//cmd:jsonnet",
         "//conditions:default": "@google_jsonnet_go//cmd/jsonnet",
     }),
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
     visibility = ["//visibility:public"],
 )
