@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-exports_files(["jsonnet.bzl"])
+exports_files(["jsonnet.bzl", "deps.bzl", "toolchain.bzl"])
 
 py_binary(
     name = "stamper",
@@ -29,4 +29,9 @@ alias(
         "//jsonnet:port_cpp": "@jsonnet//cmd:jsonnet",
         "//conditions:default": "@google_jsonnet_go//cmd/jsonnet",
     }),
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
 )
