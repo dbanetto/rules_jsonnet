@@ -5,6 +5,7 @@ def _jsonnet_toolchain(ctx):
         platform_common.ToolchainInfo(
             jsonnet = JsonnetToolchainInfo(
                 jsonnet = ctx.attr.jsonnet,
+                jsonnetfmt = ctx.attr.jsonnetfmt,
             )
         )
     ]
@@ -14,6 +15,12 @@ jsonnet_toolchain = rule(
     attrs = {
         "jsonnet": attr.label(
             doc = "The jsonnet binary",
+            cfg = "host",
+            executable = True,
+            allow_single_file = True,
+        ),
+        "jsonnetfmt": attr.label(
+            doc = "The jsonnetfmt binary",
             cfg = "host",
             executable = True,
             allow_single_file = True,

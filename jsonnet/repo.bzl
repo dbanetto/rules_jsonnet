@@ -19,6 +19,3 @@ def jsonnet_repositories():
         strip_prefix = "go-jsonnet-0d78479d37eabd9451892dd02be2470145b4d4fa",
         urls = ["https://github.com/google/go-jsonnet/archive/0d78479d37eabd9451892dd02be2470145b4d4fa.tar.gz"],
     )
-
-
-
