@@ -24,6 +24,118 @@ toolchain(
 """
 
 _GO_JSONNET_VERSIONS = {
+    "0.20.0": [
+        {
+            "os": "linux",
+            "cpu": "x86_64",
+            "sha256": "a137c5e969609c3995c4d05817a247cfef8a92760c5306c3ad7df0355dd62970",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Linux_x86_64.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "i386",
+            "sha256": "f595e1284066034a4200e3e3e3457ffa576cac3044d36bf23697f306b6c61d03",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Linux_i386.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "arm64",
+            "sha256": "49fbc99c91dcd2be53fa856307de3b8708c91dc5c74740714fdf9317957322e0",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Linux_arm64.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "armv6-m",
+            "sha256": "e1bb0fa703150c29d69eafc6df87785d0235f3181f1beba6263973bdc876c88b",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Linux_armv6.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "armv6-m",
+            "sha256": "77cceb043bf90bd4c0499f01fa7b739fc0191e8d92a4ca626f9f5c858f2efaec",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Windows_armv6.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "i386",
+            "sha256": "2a3b67d12f6ad38f19c79d801968264c128ad4a71d0bfef554bd5d9b59304796",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Windows_i386.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "x86_64",
+            "sha256": "82440a646a8d29487a243afc880db245f612a205d3eccbb900bc76d7a4049ad1",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Windows_x86_64.tar.gz"]
+        },
+        {
+            "os": "macos",
+            "cpu": "x86_64",
+            "sha256": "76901637f60589bb9bf91b3481d4aecbc31efcd35ca99ae72bcb510b00270ad9",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Darwin_x86_64.tar.gz"]
+        },
+        {
+            "os": "macos",
+            "cpu": "arm64",
+            "sha256": "a15a699a58eb172c6d91f4cbddf3681095a649008628e0cfd84f564db4244ee3",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.20.0/go-jsonnet_0.20.0_Darwin_arm64.tar.gz"]
+        },
+    ],
+    "0.19.0": [
+        {
+            "os": "linux",
+            "cpu": "x86_64",
+            "sha256": "876f4c79c59b06e67832f99f298c548c674a9623622688e7c3ba555cf5e4bafd",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Linux_x86_64.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "i386",
+            "sha256": "ef177dbd73614a9c53ed305df22f158db3712e67fbef0fb6b9aec2d2c802fb1b",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Linux_i386.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "arm64",
+            "sha256": "2ac268b622397d30def0492bb8178967d4ee923b79fca297e885784bc4e93147",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Linux_arm64.tar.gz"]
+        },
+        {
+            "os": "linux",
+            "cpu": "armv6-m",
+            "sha256": "13478b13e515e1f460cc4a765529c155e5d195444901f8d51465d7d85584aed8",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Linux_armv6.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "armv6-m",
+            "sha256": "471292976f09655e2298b5e0e5c2c9ca23424a1ff3d9ebcfea14aac17a8f7153",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Windows_armv6.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "i386",
+            "sha256": "e3dc3ea73f455252ec0640ab2da6a30408e6a511e59221841fcc772fcdf76c41",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Windows_i386.tar.gz"]
+        },
+        {
+            "os": "windows",
+            "cpu": "x86_64",
+            "sha256": "cc14ddd2d752e16ec9fb80138fe26dcfeef7b1560a52dfd469f6d16c43847fa1",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Windows_x86_64.tar.gz"]
+        },
+        {
+            "os": "macos",
+            "cpu": "x86_64",
+            "sha256": "e944690071d3611a13ca922fde80965ad16b9355e33de8b47b73467408abca91",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Darwin_x86_64.tar.gz"]
+        },
+        {
+            "os": "macos",
+            "cpu": "arm64",
+            "sha256": "3893ed3757380912ee4fd4a3d2509764a736aba0f0a028a12a72ecfde1b3a7a4",
+            "urls": ["https://github.com/google/go-jsonnet/releases/download/v0.19.0/go-jsonnet_0.19.0_Darwin_arm64.tar.gz"]
+        },
+    ],
     "0.18.0": [
         {
             "os": "linux",
@@ -76,7 +188,7 @@ _GO_JSONNET_VERSIONS = {
     ]
 }
 
-def jsonnet_register_toolchains(version="0.18.0"):
+def jsonnet_register_toolchains(version="0.20.0"):
     for release in _GO_JSONNET_VERSIONS.get(version, []):
 
         name = "github_google_go_jsonnet_{version}_{os}_{cpu}".format(os=release['os'], cpu=release['cpu'], version=version.replace('.', '_'))
