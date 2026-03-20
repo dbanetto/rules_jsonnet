@@ -236,12 +236,14 @@ def _merge_extvars(left, right):
     Returns:
         A _make_ext_dict compatible dict
     """
-    result = dict(left)
+    result = dict()
+    for (var, left_val) in left.items():
+        result[var] = dict(left_val)
 
     for (var, right_val) in right.items():
         # Check if the variable name has been used already
         if var in left:
-            left_val = left[var]
+            left_val = result[var]
 
             # Check if is the same type & value
             if left_val["type"] != right_val["type"]:
@@ -257,7 +259,7 @@ def _merge_extvars(left, right):
                 result[var]["sources"] = left_val["sources"] + right_val["sources"]
         else:
             # Simple case, right side has a new variable
-            result[var] = right_val
+            result[var] = dict(right_val)
 
     return result
 
