@@ -254,7 +254,7 @@ def _merge_extvars(left, right):
             else:
                 # type & value match!
                 # Collect the sources to provide better error messages if there ever is a mismatch
-                result[var]["sources"].extend(right_val["sources"])
+                result[var]["sources"] = left_val["sources"] + right_val["sources"]
         else:
             # Simple case, right side has a new variable
             result[var] = right_val
